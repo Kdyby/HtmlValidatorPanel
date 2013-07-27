@@ -12,8 +12,8 @@ namespace Kdyby\Extension\Diagnostics\HtmlValidator\DI;
 
 use Kdyby;
 use Nette;
-use Nette\Config\Compiler;
-use Nette\Config\Configurator;
+use Nette\DI\Compiler;
+use Nette\Configurator;
 
 
 
@@ -50,7 +50,7 @@ class ValidatorExtension extends Nette\DI\CompilerExtension
 
 
 	/**
-	 * @param \Nette\Config\Configurator $config
+	 * @param \Nette\Configurator $config
 	 */
 	public static function register(Configurator $config)
 	{
