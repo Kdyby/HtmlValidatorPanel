@@ -12,8 +12,8 @@ namespace Kdyby\Extension\Diagnostics\HtmlValidator\DI;
 
 use Kdyby;
 use Nette;
-use Nette\Config\Compiler;
-use Nette\Config\Configurator;
+use Nette\Configurator;
+use Nette\DI\Compiler;
 
 
 
@@ -39,7 +39,7 @@ class ValidatorExtension extends Nette\DI\CompilerExtension
 
 		$builder->addDefinition($this->prefix('panel'))
 			->setClass('Kdyby\Extension\Diagnostics\HtmlValidator\ValidatorPanel')
-			->addSetup('Nette\Diagnostics\Debugger::$bar->addPanel(?)', array('@self'));
+			->addSetup('Nette\Diagnostics\Debugger::getBar()->addPanel(?)', array('@self'));
 
 		$builder->getDefinition('application')
 			->addSetup('$service->onStartup[] = ?', array(array($this->prefix('@panel'), 'startBuffering')))
@@ -47,10 +47,8 @@ class ValidatorExtension extends Nette\DI\CompilerExtension
 			->addSetup('$service->onError[] = ?', array(array($this->prefix('@panel'), 'stopBuffering')));
 	}
 
-
-
 	/**
-	 * @param \Nette\Config\Configurator $config
+	 * @param Configurator $config
 	 */
 	public static function register(Configurator $config)
 	{

@@ -811,14 +811,24 @@ class ValidatorPanel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 			return NULL;
 		}
 
-		ob_start();
-		Nette\Utils\LimitedScope::load(__DIR__ . '/panel.phtml', array(
+		return self::render(__DIR__ . '/panel.phtml', array(
 			'errors' => $this->errors,
 			'html' => $this->html
 		));
-		return ob_get_clean();
 	}
 
+	public static function render($file, $vars)
+	{
+		return call_user_func(function() {
+			ob_start();
+			foreach (func_get_arg(1) as $__k => $__v) {
+				$$__k = $__v;
+			}
+			unset($__k, $__v);
+			require func_get_arg(0);
+			return ob_get_clean();
+		}, $file, $vars);
+	}
 
 
 	/**
@@ -862,7 +872,7 @@ class ValidatorPanel extends Nette\Object implements Nette\Diagnostics\IBarPanel
 		$dom->recover = TRUE;
 
 		set_error_handler(function($severity, $message) {
-		  restore_error_handler();
+			restore_error_handler();
 		});
 		@$dom->loadHTML($this->html);
 		restore_error_handler();
