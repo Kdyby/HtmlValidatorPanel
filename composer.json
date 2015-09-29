@@ -23,7 +23,7 @@
     },
     "autoload":{
         "psr-4":{
-            "Kdyby\\Extension\\Diagnostics\\HtmlValidator":""
+            "Kdyby\\Extension\\Diagnostics\\HtmlValidator\\":""
         }
     }
 }
