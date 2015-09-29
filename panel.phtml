@@ -53,7 +53,7 @@ use Nette;
             <?php echo htmlspecialchars(ValidatorPanel::$severenity[$error->level] . ' on column ' . $error->column . ': ' . $error->message); ?>
         </span></td></tr>
         <tr><td>
-            <?php echo Nette\Diagnostics\BlueScreen::highlightPhp($html, $error->line, 10); ?>
+            <?php echo \Tracy\BlueScreen::highlightPhp($html, $error->line, 10); ?>
         </td></tr>
         <?php endforeach ?>
 	</table>

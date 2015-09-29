@@ -13,7 +13,8 @@ namespace Kdyby\Extension\Diagnostics\HtmlValidator;
 use Kdyby;
 use Nette\Utils\Html;
 use Nette\Utils\Strings;
-use Nette\Diagnostics\Debugger;
+use Tracy;
+use Tracy\Debugger;
 use Nette;
 
 
@@ -21,7 +22,7 @@ use Nette;
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
-class ValidatorPanel extends Nette\Object implements Nette\Diagnostics\IBarPanel
+class ValidatorPanel extends Nette\Object implements Tracy\IBarPanel
 {
 
 	// <editor-fold desc="XML validation constants">
