@@ -32,7 +32,7 @@ class ValidatorExtension extends Nette\DI\CompilerExtension
 
 		$builder->addDefinition($this->prefix('panel'))
 			->setClass('Kdyby\Extension\Diagnostics\HtmlValidator\ValidatorPanel')
-			->addSetup('Nette\Diagnostics\Debugger::getBar()->addPanel(?)', array('@self'));
+			->addSetup('Tracy\Debugger::getBar()->addPanel(?)', array('@self'));
 
 		$builder->getDefinition('application')
 			->addSetup('$service->onStartup[] = ?', array(array($this->prefix('@panel'), 'startBuffering')))
