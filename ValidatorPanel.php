@@ -795,8 +795,8 @@ class ValidatorPanel extends Nette\Object implements Tracy\IBarPanel
 	public function getTab()
 	{
 		return Html::el('span', ['title' => 'HTML Validator'])
-			->add(Html::el()->setHtml(file_get_contents(__DIR__ . '/html_icon.svg')))
-			->add(Html::el('span', ['class' => 'tracy-label'])->setText($this->errors ? (count($this->errors) . ' problems') : 'OK'));
+			->addHtml(Html::el()->setHtml(file_get_contents(__DIR__ . '/html_icon.svg')))
+			->addHtml(Html::el('span', ['class' => 'tracy-label'])->setText($this->errors ? (count($this->errors) . ' problems') : 'OK'));
 	}
 
 
