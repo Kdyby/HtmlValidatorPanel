@@ -18,17 +18,17 @@ use tracy;
 		box-shadow: none !important;
 	}
 
-    #tracy-debug .tracy-htmlValidation td span.severenity-1 {
+    #tracy-debug .tracy-htmlValidation td span.severity-1 {
         color: #aaaa30 !important;
         font-weight: bold !important;
     }
 
-    #tracy-debug .tracy-htmlValidation td span.severenity-2 {
+    #tracy-debug .tracy-htmlValidation td span.severity-2 {
         color: #aa832f !important;
 	    font-weight: bold !important;
     }
 
-    #tracy-debug .tracy-htmlValidation td span.severenity-3 {
+    #tracy-debug .tracy-htmlValidation td span.severity-3 {
         color: #aa4c34 !important;
 	    font-weight: bold !important;
     }
@@ -49,8 +49,8 @@ use tracy;
 <div class="tracy-inner tracy-htmlValidation">
     <table>
         <?php foreach ($errors as $error): ?>
-        <tr><td><span class="severenity-<?php echo (int)$error->level; ?>">
-            <?php echo htmlspecialchars(ValidatorPanel::$severenity[$error->level] . ' on column ' . $error->column . ': ' . $error->message); ?>
+        <tr><td><span class="severity-<?php echo (int)$error->level; ?>">
+            <?php echo htmlspecialchars(ValidatorPanel::$severity[$error->level] . ' on column ' . $error->column . ': ' . $error->message); ?>
         </span></td></tr>
         <tr><td>
             <?php echo \Tracy\BlueScreen::highlightPhp($html, $error->line, 10); ?>

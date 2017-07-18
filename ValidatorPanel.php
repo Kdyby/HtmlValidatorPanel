@@ -780,7 +780,7 @@ class ValidatorPanel extends Nette\Object implements Tracy\IBarPanel
 	/**
 	 * @var array
 	 */
-	public static $severenity = array(
+	public static $severity = array(
 		LIBXML_ERR_WARNING => 'Warning',
 		LIBXML_ERR_ERROR => 'Error',
 		LIBXML_ERR_FATAL => 'Fatal error',

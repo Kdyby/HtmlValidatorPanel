@@ -16,7 +16,7 @@
         "issues":"https://github.com/Kdyby/HtmlValidatorPanel/issues"
     },
     "require":{
-        "tracy/tracy":"~2.3"
+        "tracy/tracy":"~2.4"
     },
     "suggest":{
         "nette/di":"The extension can be registered using nette/di into your application"
