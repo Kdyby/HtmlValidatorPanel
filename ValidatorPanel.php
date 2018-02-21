@@ -21,7 +21,7 @@ use Nette;
 /**
  * @author Filip Procházka <filip@prochazka.su>
  */
-class ValidatorPanel extends Nette\Object implements Tracy\IBarPanel
+class ValidatorPanel extends Nette\SmartObject implements Tracy\IBarPanel
 {
 
 	// <editor-fold desc="XML validation constants">
