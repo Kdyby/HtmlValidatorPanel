@@ -776,6 +776,11 @@ class ValidatorPanel implements Tracy\IBarPanel
 	public static $ignoreErrors = array(
 		self::XML_HTML_UNKNOWN_TAG
 	);
+	
+	/**
+	 * @var boolean 
+	 */
+	private static $validate = true;
 
 	/**
 	 * @var array
@@ -853,6 +858,13 @@ class ValidatorPanel implements Tracy\IBarPanel
 		if (ob_get_level()) ob_end_flush();
 	}
 
+	/**
+	 * Stop validator.
+	 */
+	public static function stopValidate()
+	{
+		self::$validate = false;
+	}
 
 
 	/**
@@ -863,28 +875,31 @@ class ValidatorPanel implements Tracy\IBarPanel
 		if (!ob_get_level()) {
 			return;
 		}
-
-		$this->html = Strings::normalize(ob_get_contents());
+		if(self::$validate) {
+			$this->html = Strings::normalize(ob_get_contents());
+		}
 		ob_end_flush();
+		
+		if(self::$validate) {
+			libxml_use_internal_errors(true);
+			$dom = new \DOMDocument('1.0', 'UTF-8');
+			$dom->resolveExternals = FALSE;
+			$dom->validateOnParse = TRUE;
+			$dom->preserveWhiteSpace = FALSE;
+			$dom->strictErrorChecking = TRUE;
+			$dom->recover = TRUE;
 
-		libxml_use_internal_errors(true);
-		$dom = new \DOMDocument('1.0', 'UTF-8');
-		$dom->resolveExternals = FALSE;
-		$dom->validateOnParse = TRUE;
-		$dom->preserveWhiteSpace = FALSE;
-		$dom->strictErrorChecking = TRUE;
-		$dom->recover = TRUE;
-
-		set_error_handler(function($severity, $message) {
+			set_error_handler(function($severity, $message) {
+				restore_error_handler();
+			});
+			@$dom->loadHTML($this->html);
 			restore_error_handler();
-		});
-		@$dom->loadHTML($this->html);
-		restore_error_handler();
 
-		$this->errors = array_filter(libxml_get_errors(), function (\LibXMLError $error) {
-			return !in_array((int)$error->code, ValidatorPanel::$ignoreErrors, TRUE);
-		});
-		libxml_clear_errors();
+			$this->errors = array_filter(libxml_get_errors(), function (\LibXMLError $error) {
+				return !in_array((int)$error->code, ValidatorPanel::$ignoreErrors, TRUE);
+			});
+			libxml_clear_errors();
+		}
 	}
 
 }
