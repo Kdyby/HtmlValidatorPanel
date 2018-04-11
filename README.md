@@ -38,6 +38,17 @@ extensions:
 ![example](https://raw.githubusercontent.com/Kdyby/HtmlValidatorPanel/master/docs/example.png)
 
 
+Advanced usage
+------------
+You can specify presenters whose outputs you don´t want to parse by HtmlValidator. It can be done in config file somehow like this:
+
+```yml
+htmlPanel:
+	presentersToDisableValidationFor: [
+		App\CustomModule\PagePresenter
+		NetteModule\MicroPresenter
+	]
+```
 
 -----
 

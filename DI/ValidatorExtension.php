@@ -29,9 +29,11 @@ class ValidatorExtension extends Nette\DI\CompilerExtension
 		if (!$builder->parameters['debugMode']) {
 			return;
 		}
-
+		
+		$presentersToDisableValidationFor = isset($this->config['presentersToDisableValidationFor']) ? $this->config['presentersToDisableValidationFor'] : [];
+		
 		$builder->addDefinition($this->prefix('panel'))
-			->setClass('Kdyby\Extension\Diagnostics\HtmlValidator\ValidatorPanel')
+			->setClass('Kdyby\Extension\Diagnostics\HtmlValidator\ValidatorPanel', array($presentersToDisableValidationFor) )
 			->addSetup('Tracy\Debugger::getBar()->addPanel(?)', array('@self'));
 
 		$builder->getDefinition('application')

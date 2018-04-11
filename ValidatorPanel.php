@@ -771,6 +771,11 @@ class ValidatorPanel implements Tracy\IBarPanel
 	private $errors = array();
 
 	/**
+	 * @var string[]
+	 */
+	private $presentersToDisableValidationFor = array();
+
+	/**
 	 * @var array
 	 */
 	public static $ignoreErrors = array(
@@ -786,7 +791,12 @@ class ValidatorPanel implements Tracy\IBarPanel
 		LIBXML_ERR_FATAL => 'Fatal error',
 	);
 
-
+	/**
+	 * @param string[] $presentersToDisableValidationFor
+	 */
+	public function __construct(array $presentersToDisableValidationFor) {
+		$this->presentersToDisableValidationFor = $presentersToDisableValidationFor;
+	}
 
 	/**
 	 * Renders HTML code for custom tab.
@@ -858,9 +868,14 @@ class ValidatorPanel implements Tracy\IBarPanel
 	/**
 	 * Validate.
 	 */
-	public function validate()
+	public function validate(\Nette\Application\Application $application)
 	{
 		if (!ob_get_level()) {
+			return;
+		}
+		
+		if(in_array(get_class($application->getPresenter()), $this->presentersToDisableValidationFor, true)){
+			ob_end_flush();
 			return;
 		}
 
